@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Catálogo de Receitas</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+    <body onload="preencheCatalogo()">
+    <div class="container-fluid bg-warning">
+        <div class="d-flex flex-wrap" id="pnlCatalogo"></div>
+    </div>
+    <script>
+            const receitas = [
+                {
+                    "titulo": "Bolo de Cenoura",
+                    "imagem": "./imagens/BolodeCenoura.jpeg",
+                    "ingredientes": ["3 cenouras médias", "4 ovos", "1/2 xícara de óleo", "2 xícaras de açúcar", "2 xícaras de farinha de trigo", "1 colher de sopa de fermento em pó"],
+                    "preparo": "Em um liquidificador, bata as cenouras, os ovos e o óleo até obter uma mistura homogênea. Em um recipiente, misture o açúcar e a farinha de trigo. Adicione a mistura do liquidificador e misture bem. Por último, adicione o fermento e misture delicadamente. Coloque em uma forma untada e enfarinhada e asse em forno médio por cerca de 35 minutos."
+                },
+                {
+                    "titulo": "Torta de Frango",
+                    "imagem": "./imagens/TortadeFrango.jpeg",
+                    "ingredientes": ["2 xícaras de farinha de trigo", "1 colher de chá de sal", "1/2 xícara de óleo", "1/2 xícara de água", "2 peitos de frango cozidos e desfiados", "1 lata de milho", "1 lata de ervilha", "1 cebola picada", "1 dente de alho picado", "1 lata de molho de tomate", "200g de queijo mussarela ralado"],
+                    "preparo": "Em um recipiente, misture a farinha de trigo e o sal. Adicione o óleo e misture bem. Aos poucos, adicione a água e misture até obter uma massa lisa e homogênea. Abra a massa com um rolo e forre uma forma de fundo removível. Em uma panela, refogue a cebola e o alho. Adicione o frango desfiado, o milho, a ervilha e o molho de tomate e misture bem. Coloque o recheio sobre a massa e cubra com o queijo ralado. Leve ao forno médio por cerca de 30 minutos."
+                },
+                {
+                    "titulo": "Lasanha de Berinjela",
+                    "imagem": "./imagens/TortadeFrango.jpeg",
+                    "ingredientes": ["2 berinjelas médias", "1 lata de molho de tomate", "1 cebola picada", "2 dentes de alho picados", "2 colheres de sopa de azeite", "500g de carne moída", "sal e pimenta a gosto", "1/2 xícara de água", "200g dequeijo mussarela ralado"],
+                    "preparo": "Corte as berinjelas em fatias finas e tempere com sal. Em uma frigideira, aqueça o azeite e refogue a cebola e o alho. Adicione a carne moída e tempere com sal e pimenta. Quando estiver cozida, adicione o molho de tomate e a água e deixe cozinhar por mais alguns minutos. Em um refratário, faça camadas de berinjela e carne, terminando com uma camada de berinjela. Cubra com o queijo mussarela ralado e leve ao forno médio por cerca de 30 minutos."
+                }
+            ];
+            function getListaIngredientes(receita) {
+                let listaHTML = "<ul>";
+                listaHTML += receita.ingredientes.map(ingrediente => `<li>${ingrediente}</li>`).reduce((prev, curr) => prev + curr);
+                listaHTML += "</ul>";
+                return listaHTML;
+            }
+
+            function getCard(receita) {
+                const cardHTML = `
+                <div class="card" style="width: 250px; margin: 10px 50px 20px;">
+                        <img class="card-img-top" src="${receita.imagem}" alt="${receita.titulo}">
+                        <div class="card-body">
+                            <h5 class="card-title">${receita.titulo}</h5>
+                        <div class="card-text">
+                            ${getListaIngredientes(receita)}
+                            <hr>
+                            <p>${receita.preparo}</p>
+                        </div>
+                    </div>
+                </div>
+                `;
+            return cardHTML;
+            }
+
+            function preencheCatalogo() {
+            const pnlCatalogo = document.getElementById("pnlCatalogo");
+            const catalogoHTML = receitas.map(receita => getCard(receita)).reduce((prev, curr) => prev + curr);
+            pnlCatalogo.innerHTML = catalogoHTML;
+            }
+        </script>
+    </body>
+</html>
